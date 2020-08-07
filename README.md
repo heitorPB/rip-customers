@@ -32,6 +32,11 @@ In case no `ETCD_HOST` is provided, the script uses the value from the
 
 ### Endpoints
 
+The system has two endpoints:
+
+- GET `/customers/`: list all customers in the database
+- GET `/customers/{id}`: display a single customer by its `id`
+
 
 ## Running
 
@@ -41,6 +46,20 @@ host in the `settings.env` file, as well as other configurations as needed.
 ### Docker
 
 ### In a Terminal
+
+You need a modern Python installation:
+
+```
+$ virtualenv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ uvicorn app.main:app --reload
+```
+
+This will install all python dependencies and start a uvicorn server on port
+8000. The `--reload` flags tells the server to reload on any source code
+change, so you don't need to kill the process and start again.
+
 
 ## Using
 
