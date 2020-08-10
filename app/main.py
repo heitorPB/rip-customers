@@ -16,7 +16,7 @@ ETCD_PORT = os.getenv('ETCD_PORT')
 
 app = FastAPI(title='RIP Customers',
               description='Rest api In Python for managing customer data',
-              version='0.2.0')
+              version='0.2.1')
 
 
 def db():

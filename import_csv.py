@@ -1,19 +1,14 @@
 import csv
 import logging
 import json
-import os
 
 import click
-from dotenv import load_dotenv
 import etcd3
 from etcd3.exceptions import ConnectionFailedError
 
 from app.geo import coordinates
+from app.main import db
 
-
-load_dotenv('settings.env')
-ETCD_HOST = os.getenv('ETCD_HOST')
-ETCD_PORT = os.getenv('ETCD_PORT')
 
 logging.basicConfig(level=logging.INFO)
 
@@ -23,13 +18,7 @@ logging.basicConfig(level=logging.INFO)
               help='perform a trial run with no changes made')
 @click.argument('filename', type=click.File('r'))
 def import_csv(dry_run, filename):
-    etcd = etcd3.client(host=ETCD_HOST, port=ETCD_PORT)
-
-    try:
-        status = etcd.status()
-    except ConnectionFailedError:
-        logging.critical(f'Could not connect to etcd')
-        return
+    etcd = db()
 
     reader = csv.DictReader(filename)
     for row in reader:
