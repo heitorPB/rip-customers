@@ -8,6 +8,8 @@ class Customer(BaseModel):
     company: str
     city: str
     title: str
+    latitude: float
+    longitude: float
 
 
 class Message(BaseModel):

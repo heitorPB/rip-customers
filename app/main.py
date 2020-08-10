@@ -14,7 +14,9 @@ load_dotenv('settings.env')
 ETCD_HOST = os.getenv('ETCD_HOST')
 ETCD_PORT = os.getenv('ETCD_PORT')
 
-app = FastAPI()
+app = FastAPI(title='RIP Customers',
+              description='Rest api In Python for managing customer data',
+              version='0.2.0')
 
 
 def db():

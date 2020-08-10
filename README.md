@@ -4,7 +4,7 @@ REST in Python services for Customers data.
 
 ## Description
 
-TODO simple description of the system
+A simple customers REST API in Python.
 
 Techs used:
 - [etcd](https://etcd.io) as key-value store
@@ -12,10 +12,12 @@ Techs used:
 - [Gunicorn](https://gunicorn.org/) server with
   [uvicorn](https://www.uvicorn.org/) workers.
 - misc Python libs
+- [MapQuest](https://mapquest.com/) for geolocation
+
 
 ### Scripts
 
-There are some helper scripts in the [scripts](scripts/) folder:
+There are some helper scripts for common tasks:
 
 #### `import_csv.py`
 
@@ -24,11 +26,20 @@ Given a csv file with customer data, add each row to the database.
 Usage:
 
 ```
-$ ETCD_HOST=db.example.com python scripts/import_csv.py customers.csv
+$ ETCD_HOST=db.example.com python import_csv.py customers.csv
 ```
 
 In case no `ETCD_HOST` is provided, the script uses the value from the
 `settings.env` file, i.e., `localhost`.
+
+The csv should have the following structure:
+
+```
+id,first_name,last_name,email,gender,company,city,title
+```
+
+The system then queries [MapQuest](https://mapquest.com/) to get the geographic
+coordinates of that customer before saving in the database.
 
 ### Endpoints
 
@@ -42,6 +53,11 @@ The system has two endpoints:
 
 This system needs access to an etcd3 instance running somewhere. Please set the
 host in the `settings.env` file, as well as other configurations as needed.
+
+It also needs a MapQuest's key to use their public API. Simply go to [MapQuest
+Developer Network](https://developer.mapquest.com/user/me/apps) and create one.
+The main advantage over GoogleMaps API is that MapQuest does no require your
+credit card to use the free tier. Then add the key to the configuration file.
 
 ### Docker
 
