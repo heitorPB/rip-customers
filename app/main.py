@@ -20,7 +20,7 @@ app = FastAPI(title='RIP Customers',
 
 
 def db():
-    etcd = etcd3.client()
+    etcd = etcd3.client(host=ETCD_HOST, port=ETCD_PORT)
 
     try:
         status = etcd.status()
