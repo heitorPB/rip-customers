@@ -61,6 +61,16 @@ credit card to use the free tier. Then add the key to the configuration file.
 
 ### Docker
 
+Set your MapQuest's API key in the `settings.env` file or in the
+`docker-compose.yml` file and fire it:
+
+```
+$ docker-compose up --detach
+```
+
+This starts the database and the server, running on port 80. Check
+[Using](#using) below for usage.
+
 ### In a Terminal
 
 You need a modern Python installation:

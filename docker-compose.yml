@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  rip-customers:
+    build: .
+    depends_on:
+      - etcd
+    ports:
+      - "80:80"
+    environment:
+      - ETCD_HOST=etcd
+      - ETCD_PORT=2379
+    restart: unless-stopped
+
+  etcd:
+    image: bitnami/etcd:3.4.4
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    restart: unless-stopped
