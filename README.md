@@ -94,10 +94,10 @@ the online documentation at:
 
 - [swagger](http://localhost/docs)
 - [redoc](http://localhost/redoc)
+- [openapi.json](http://localhost/openapi.json) - OpenAPI spefication
 
 A simple way to test the system is to access the swagger and use the `Try it
 out` buttons on each endpoint.
-
 
 ## Tests
 
