@@ -1,4 +1,6 @@
 .git/
 .git*
+.coverage
 venv
 **/__pycache__
+htmlcov

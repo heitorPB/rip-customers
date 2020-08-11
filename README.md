@@ -99,6 +99,25 @@ A simple way to test the system is to access the swagger and use the `Try it
 out` buttons on each endpoint.
 
 
+## Tests
+
+Tests are available in the folder [tests](tests/), using `pytest`. To run them,
+first start etcd:
+
+```
+$ docker-compose up --detach etcd
+```
+
+Now, run `pytest` and generate a nice HTML coverage report:
+
+```
+$ coverage run -m --souce=app pytest
+$ coverage html
+```
+
+The report is available in `htmlcov/index.html`.
+
+
 ## License
 
 Distributed under the GNU GPLv3. See [LICENSE](LICENSE) for details.
