@@ -43,9 +43,10 @@ coordinates of that customer before saving in the database.
 
 ### Endpoints
 
-The system has two endpoints:
+The system has three endpoints:
 
 - GET `/customers/`: list all customers in the database
+- POST `/customers/`: add a new customer
 - GET `/customers/{id}`: display a single customer by its `id`
 
 

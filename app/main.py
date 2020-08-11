@@ -8,7 +8,8 @@ import etcd3
 from etcd3.exceptions import ConnectionFailedError
 from fastapi import FastAPI, HTTPException
 
-from .models import Customer, Message
+from .geo import coordinates
+from .models import Customer, CustomerId, Message
 
 load_dotenv('settings.env')
 ETCD_HOST = os.getenv('ETCD_HOST')
@@ -43,6 +44,28 @@ async def customers():
         data.append(json.loads(customer[0]))
 
     return data
+
+
+@app.post('/customers/',
+          status_code=201,
+          responses={
+              403: {'model': Message, 'description': "Customer's id already exists"}
+          }
+)
+async def create_customer(customer: CustomerId):
+    etcd = db()
+
+    customer = customer.dict()
+    id_ = customer.pop('id')
+    data = etcd.get(id_)
+
+    if data[0] is None:
+        coords = coordinates(customer['city'])
+        customer.update(coords)
+        etcd.put(id_, json.dumps(customer))
+    else:
+        raise HTTPException(status_code=403,
+                            detail=f'Customer {id_} already exists')
 
 
 @app.get('/customers/{customer_id}',
